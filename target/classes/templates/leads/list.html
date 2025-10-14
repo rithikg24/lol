@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Leads</title>
+    <link rel="stylesheet" th:href="@{/css/base.css}">
+</head>
+<body>
+<header>
+    <h1>Leads</h1>
+    <nav>
+        <a th:href="@{/}">Home</a> |
+        <a th:href="@{/leads/new}">New Lead</a>
+    </nav>
+</header>
+<main>
+    <table border="1" cellpadding="6" cellspacing="0">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Customer ID</th>
+            <th>Product</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="l : ${leads}">
+            <td th:text="${l.id}"></td>
+            <td th:text="${l.customer != null ? l.customer.id : ''}"></td>
+            <td th:text="${l.product}"></td>
+            <td th:text="${l.status}"></td>
+            <td>
+                <a th:href="@{'/leads/' + ${l.id} + '/edit'}">Edit</a>
+                <form th:action="@{'/leads/' + ${l.id} + '/delete'}" method="post" style="display:inline">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+</body>
+</html>
