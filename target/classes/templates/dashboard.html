@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard - XYZ Bank CRM</title>
+    <link rel="stylesheet" th:href="@{/css/base.css}">
+</head>
+<body>
+<header>
+    <h1>Dashboard</h1>
+    <nav>
+        <a th:href="@{/}">Home</a> |
+        <a th:href="@{/customers}">Customers</a> |
+        <a th:href="@{/leads}">Leads</a> |
+        <a th:href="@{/service-requests}">Service Requests</a>
+    </nav>
+</header>
+<main>
+    <section>
+        <h2>At a glance</h2>
+        <ul>
+            <li>Total customers: <span th:text="${totalCustomers}"></span></li>
+            <li>Interactions (last 7 days): <span th:text="${recentInteractions}"></span></li>
+        </ul>
+    </section>
+    <section>
+        <h2>Lead status</h2>
+        <div th:if="${leadStatusCounts != null}">
+            <div th:each="entry : ${leadStatusCounts}">
+                <span th:text="${entry.key}"></span>: <strong th:text="${entry.value}"></strong>
+            </div>
+        </div>
+    </section>
+    <section>
+        <h2>Recommendations</h2>
+        <ul>
+            <li th:each="rec : ${recommendations}" th:text="${rec}"></li>
+        </ul>
+    </section>
+</main>
+</body>
+</html>
